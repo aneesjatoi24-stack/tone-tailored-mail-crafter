@@ -12,7 +12,7 @@ export class AiError extends Error {
 
 /** Streams a single prompt through Lovable AI and returns the final text. */
 export async function runPrompt(instructions: string, prompt: string): Promise<string> {
-  const apiKey = process.env.LOVABLE_API_KEY;
+  const apiKey = process.env['LOVABLE_API_KEY'];
   if (!apiKey) throw new AiError("The AI service is not configured yet.", 500);
 
   let runId: string | undefined;
