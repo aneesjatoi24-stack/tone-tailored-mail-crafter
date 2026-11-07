@@ -12,6 +12,10 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
+import { Route as ToolsIndexRouteImport } from './routes/tools.index'
+import { Route as ToolsEmailSignatureGeneratorRouteImport } from './routes/tools.email-signature-generator'
+import { Route as ToolsSubjectLineGeneratorRouteImport } from './routes/tools.subject-line-generator'
+import { Route as ToolsToneCheckerRouteImport } from './routes/tools.tone-checker'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -28,35 +32,95 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
   path: '/blog/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ToolsIndexRoute = ToolsIndexRouteImport.update({
+  id: '/tools/',
+  path: '/tools/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ToolsEmailSignatureGeneratorRoute =
+  ToolsEmailSignatureGeneratorRouteImport.update({
+    id: '/tools/email-signature-generator',
+    path: '/tools/email-signature-generator',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ToolsSubjectLineGeneratorRoute =
+  ToolsSubjectLineGeneratorRouteImport.update({
+    id: '/tools/subject-line-generator',
+    path: '/tools/subject-line-generator',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ToolsToneCheckerRoute = ToolsToneCheckerRouteImport.update({
+  id: '/tools/tone-checker',
+  path: '/tools/tone-checker',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/tools/email-signature-generator': typeof ToolsEmailSignatureGeneratorRoute
+  '/tools/subject-line-generator': typeof ToolsSubjectLineGeneratorRoute
+  '/tools/tone-checker': typeof ToolsToneCheckerRoute
   '/blog/': typeof BlogIndexRoute
+  '/tools/': typeof ToolsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/tools/email-signature-generator': typeof ToolsEmailSignatureGeneratorRoute
+  '/tools/subject-line-generator': typeof ToolsSubjectLineGeneratorRoute
+  '/tools/tone-checker': typeof ToolsToneCheckerRoute
   '/blog': typeof BlogIndexRoute
+  '/tools': typeof ToolsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/tools/email-signature-generator': typeof ToolsEmailSignatureGeneratorRoute
+  '/tools/subject-line-generator': typeof ToolsSubjectLineGeneratorRoute
+  '/tools/tone-checker': typeof ToolsToneCheckerRoute
   '/blog/': typeof BlogIndexRoute
+  '/tools/': typeof ToolsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/blog/$slug' | '/blog/'
+  fullPaths:
+    | '/'
+    | '/blog/$slug'
+    | '/tools/email-signature-generator'
+    | '/tools/subject-line-generator'
+    | '/tools/tone-checker'
+    | '/blog/'
+    | '/tools/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/blog/$slug' | '/blog'
-  id: '__root__' | '/' | '/blog/$slug' | '/blog/'
+  to:
+    | '/'
+    | '/blog/$slug'
+    | '/tools/email-signature-generator'
+    | '/tools/subject-line-generator'
+    | '/tools/tone-checker'
+    | '/blog'
+    | '/tools'
+  id:
+    | '__root__'
+    | '/'
+    | '/blog/$slug'
+    | '/tools/email-signature-generator'
+    | '/tools/subject-line-generator'
+    | '/tools/tone-checker'
+    | '/blog/'
+    | '/tools/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BlogSlugRoute: typeof BlogSlugRoute
+  ToolsEmailSignatureGeneratorRoute: typeof ToolsEmailSignatureGeneratorRoute
+  ToolsSubjectLineGeneratorRoute: typeof ToolsSubjectLineGeneratorRoute
+  ToolsToneCheckerRoute: typeof ToolsToneCheckerRoute
   BlogIndexRoute: typeof BlogIndexRoute
+  ToolsIndexRoute: typeof ToolsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -82,13 +146,45 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/tools/': {
+      id: '/tools/'
+      path: '/tools'
+      fullPath: '/tools/'
+      preLoaderRoute: typeof ToolsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tools/email-signature-generator': {
+      id: '/tools/email-signature-generator'
+      path: '/tools/email-signature-generator'
+      fullPath: '/tools/email-signature-generator'
+      preLoaderRoute: typeof ToolsEmailSignatureGeneratorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tools/subject-line-generator': {
+      id: '/tools/subject-line-generator'
+      path: '/tools/subject-line-generator'
+      fullPath: '/tools/subject-line-generator'
+      preLoaderRoute: typeof ToolsSubjectLineGeneratorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tools/tone-checker': {
+      id: '/tools/tone-checker'
+      path: '/tools/tone-checker'
+      fullPath: '/tools/tone-checker'
+      preLoaderRoute: typeof ToolsToneCheckerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BlogSlugRoute: BlogSlugRoute,
+  ToolsEmailSignatureGeneratorRoute: ToolsEmailSignatureGeneratorRoute,
+  ToolsSubjectLineGeneratorRoute: ToolsSubjectLineGeneratorRoute,
+  ToolsToneCheckerRoute: ToolsToneCheckerRoute,
   BlogIndexRoute: BlogIndexRoute,
+  ToolsIndexRoute: ToolsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
