@@ -28,3 +28,6 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Article content
+- Keep blog content in typed article batches and resolve dedicated bundled images through the central article registry, falling back to category images so listing and detail views stay consistent.
