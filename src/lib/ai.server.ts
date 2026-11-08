@@ -61,6 +61,20 @@ export async function runPrompt(instructions: string, prompt: string): Promise<s
       throw new AiError("The AI writer is temporarily unavailable. Please try again later.", status);
     throw new AiError("Something went wrong while writing. Please try again.", status);
   }
+  return cleanText(text);
+}
+
+/** Strips markdown code fences, backticks and stray formatting so output is clean plain text. */
+export function cleanText(raw: string): string {
+  let text = raw.trim();
+  // Remove fenced code blocks, keeping their inner content (```markdown ... ``` or ``` ... ```)
+  text = text.replace(/```[a-zA-Z]*\s*\n?([\s\S]*?)```/g, "$1");
+  // Remove inline backticks
+  text = text.replace(/`([^`]*)`/g, "$1");
+  // Remove leftover bold/italic markers
+  text = text.replace(/\*\*([^*]+)\*\*/g, "$1").replace(/\*([^*]+)\*/g, "$1");
+  // Remove markdown headings (## Heading -> Heading)
+  text = text.replace(/^#{1,6}\s+/gm, "");
   return text.trim();
 }
 
