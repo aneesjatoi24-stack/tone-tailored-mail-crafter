@@ -76,7 +76,8 @@ function BlockView({ b }: { b: Block }) {
 
 function ArticlePage() {
   const { slug } = Route.useLoaderData();
-  const a = getArticle(slug)!;
+  const a = getArticle(slug);
+  if (!a) throw notFound();
   const toc = a.blocks.filter((b): b is Extract<Block, { type: "h2" }> => b.type === "h2");
   const mid = Math.floor(a.blocks.length / 2);
   const related = a.related.map(getArticle).filter((x) => !!x);

@@ -2,6 +2,10 @@ import jobImg from "@/assets/cat-job.jpg";
 import businessImg from "@/assets/cat-business.jpg";
 import studentImg from "@/assets/cat-student.jpg";
 import tipsImg from "@/assets/cat-tips.jpg";
+import professionalImg from "@/assets/article-professional-email.jpg";
+import applicationImg from "@/assets/article-job-application.jpg";
+import interviewImg from "@/assets/article-interview-follow-up.jpg";
+import resignationImg from "@/assets/article-resignation.jpg";
 import { batch1 } from "./articles/batch1";
 import { batch2 } from "./articles/batch2";
 import { batch3 } from "./articles/batch3";
@@ -22,7 +26,14 @@ export const ARTICLES: Article[] = [...batch1, ...batch2, ...batch3, ...batch4, 
   b.date.localeCompare(a.date),
 );
 
-export const imageFor = (a: Article) => IMAGES[a.category];
+const ARTICLE_IMAGES: Record<string, string> = {
+  "how-to-write-a-professional-email": professionalImg,
+  "job-application-email": applicationImg,
+  "follow-up-email-after-interview": interviewImg,
+  "resignation-email": resignationImg,
+};
+
+export const imageFor = (a: Article) => ARTICLE_IMAGES[a.slug] ?? IMAGES[a.category];
 export const getArticle = (slug: string) => ARTICLES.find((a) => a.slug === slug);
 export const POPULAR = ["how-to-write-a-professional-email", "job-application-email", "follow-up-email-after-interview"];
 
